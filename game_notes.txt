@@ -1,4 +1,0 @@
--the player is on an html canvas that moves relative to him/her. 
--canvas is generated as  soon as the player moves off of a generated tile. 
--when a tile is completely off screen, delete current contents of tile
--call draw() on each pointer click (or continuously) after updating coordinates. 
