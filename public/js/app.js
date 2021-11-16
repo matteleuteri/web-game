@@ -2,7 +2,7 @@ let socket = io();
 let canvas = document.getElementById('Canvas');
 
 let startButton = document.getElementById('startButton');
-var player_id
+var player_id = -1
 var player_configs = {
     'xPos': 100,
     'yPos': 100,
@@ -18,15 +18,16 @@ $(document).keydown(function(e) {
 // this does not emmit anything to server because 
 // other clients do not need to respond to it immediately.
 socket.on('createPlayerProfile', (num_players) => {
-    player_id = toString(num_players);
-    console.log(player_configs);
+    console.log(num_players)
+    player_id = num_players;
 });
 
 socket.on('state', (config) => {
-    console.log("client state updated");
     var ctx = canvas.getContext("2d");
 
     ctx.clearRect(0, 0, 600, 400);
+    ctx.beginPath();
+
     for(var player_id in config) {
         current_player = config[player_id];
         current_x = current_player['xPos'];
@@ -38,12 +39,11 @@ socket.on('state', (config) => {
 });
 
 function updateCanvas(xPos, yPos, ctx) {
-    ctx.beginPath();
     ctx.moveTo(xPos, yPos);
     ctx.lineTo(xPos + 20, yPos);
     ctx.lineTo(xPos + 20, yPos + 20);
     ctx.lineTo(xPos, yPos + 20)
-    ctx.fill();
+    //ctx.fill();
 }
 
 
@@ -78,7 +78,7 @@ function update(progress) {
     //send update to server
     player_configs['xPos'] = xPos
     player_configs['yPos'] = yPos
-    socket.emit('updateConfig', player_id, player_configs);
+    socket.emit('updateConfig', {id: player_id, configs: player_configs});
 }
 function loop(timestamp) {
   var progress = timestamp - lastRender;

@@ -2,37 +2,46 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
-const publicPath = path.join(__dirname, '/../public');
+//const publicPath = path.join(__dirname, '/../public');
 const port = process.env.PORT || 3000;
 let app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
-app.use(express.static(publicPath));
+app.use(express.static(path.join(__dirname, '/../public')));
 server.listen(port, ()=> {
   console.log('Starting server on port '+port);
 });
 var num_players = 0
 var config = {};
 
-
 io.on('connection', (socket) => {
- 	console.log('A user just connected with id ' + num_players + '.');
- 	config[toString(num_players)] = {'xPos': 100, 'yPos': 100, 'speed': 0.2, 'direction': 0};
- 	io.emit('createPlayerProfile', toString(num_players));
+ 	
+  console.log('A user just connected with id ' + num_players + '.');
+ 	config[num_players] = {'xPos': 100, 'yPos': 100, 'speed': 0.2, 'direction': 0};
+ 	socket.emit('createPlayerProfile', num_players);
  	num_players += 1;
 
- 	socket.on('updateConfig', (id, updated_configs) => {
- 		console.log("state updated???");
- 		console.log(updated_configs)
- 		console.log(config)
- 		console.log(config[toString(id)])
- 		config[toString(id)]['xPos'] = updated_configs['xPos'];
- 		config[toString(id)]['yPos'] = updated_configs['yPos'];
- 		config[toString(id)]['speed'] = updated_configs['speed'];
- 		config[toString(id)]['direction'] = updated_configs['direction'];
+  socket.on('updateConfig', (id_and_configs) => {
 
+    // var id = id_and_configs[0]
+    // var updated_configs = id_and_configs[1]
+    console.log("updating configs.................");
+    id = id_and_configs.id;
+    if(id == -1){return;}
+
+
+    client_configs = id_and_configs.configs;
+    console.log(client_configs)
+    console.log(config)
+    console.log(config['0'])
+    console.log(typeof id)
+    console.log(id)
+    console.log(config[toString(id)])
+ 		config[id]['xPos'] = client_configs['xPos'];
+ 		config[id]['yPos'] = client_configs['yPos'];
+ 		config[id]['speed'] = client_configs['speed'];
+ 		config[id]['direction'] = client_configs['direction'];
  	});
-
 
   socket.on('disconnect', () => {
     console.log('A user has disconnected.');
@@ -45,9 +54,3 @@ io.on('connection', (socket) => {
 setInterval(function() {
   io.sockets.emit('state', config);
 }, 1000 / 60);
-
-
-
-
-
-
