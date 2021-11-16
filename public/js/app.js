@@ -2,6 +2,7 @@ let socket = io();
 let canvas = document.getElementById('Canvas');
 
 let startButton = document.getElementById('startButton');
+var lastRender = 0;
 var player_id = -1
 var player_configs = {
     'xPos': 100,
@@ -24,10 +25,8 @@ socket.on('createPlayerProfile', (num_players) => {
 
 socket.on('state', (config) => {
     var ctx = canvas.getContext("2d");
-
     ctx.clearRect(0, 0, 600, 400);
     ctx.beginPath();
-
     for(var player_id in config) {
         current_player = config[player_id];
         current_x = current_player['xPos'];
@@ -35,7 +34,6 @@ socket.on('state', (config) => {
         updateCanvas(current_x, current_y, ctx);
     }
     ctx.stroke();
-
 });
 
 function updateCanvas(xPos, yPos, ctx) {
@@ -43,12 +41,11 @@ function updateCanvas(xPos, yPos, ctx) {
     ctx.lineTo(xPos + 20, yPos);
     ctx.lineTo(xPos + 20, yPos + 20);
     ctx.lineTo(xPos, yPos + 20)
-    //ctx.fill();
+    ctx.fill();
 }
 
 
 
-var lastRender = 0;
 
 window.requestAnimationFrame(loop);
 function update(progress) {
@@ -91,22 +88,3 @@ function loop(timestamp) {
 
 
 
-
-// crazyButton.addEventListener('click', () => {
-//     socket.emit('crazyIsClicked', {
-//         offsetLeft: Math.random() * ((window.innerWidth - crazyButton.clientWidth) - 100),
-//         offsetTop: Math.random() * ((window.innerHeight - crazyButton.clientHeight) - 50)
-//     });
-// })
-// socket.on('crazyIsClicked', (data) => {
-//     goCrazy(data.offsetLeft, data.offsetTop);
-// });
-// startButton.addEventListener('click', () => {
-//     socket.emit('startGame');
-// });
-// socket.on('startGame', () => {
-//     hideStartButton();
-// });
-// function hideStartButton() {
-//     startButton.style.display = "none";
-// }

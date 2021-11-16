@@ -15,41 +15,23 @@ var num_players = 0
 var config = {};
 
 io.on('connection', (socket) => {
- 	
   console.log('A user just connected with id ' + num_players + '.');
  	config[num_players] = {'xPos': 100, 'yPos': 100, 'speed': 0.2, 'direction': 0};
  	socket.emit('createPlayerProfile', num_players);
  	num_players += 1;
-
   socket.on('updateConfig', (id_and_configs) => {
-
-    // var id = id_and_configs[0]
-    // var updated_configs = id_and_configs[1]
-    console.log("updating configs.................");
     id = id_and_configs.id;
     if(id == -1){return;}
-
-
     client_configs = id_and_configs.configs;
-    console.log(client_configs)
-    console.log(config)
-    console.log(config['0'])
-    console.log(typeof id)
-    console.log(id)
-    console.log(config[toString(id)])
  		config[id]['xPos'] = client_configs['xPos'];
  		config[id]['yPos'] = client_configs['yPos'];
  		config[id]['speed'] = client_configs['speed'];
  		config[id]['direction'] = client_configs['direction'];
  	});
-
   socket.on('disconnect', () => {
     console.log('A user has disconnected.');
   });
 });
-
-
-
 // update state continuously
 setInterval(function() {
   io.sockets.emit('state', config);
