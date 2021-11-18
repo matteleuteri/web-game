@@ -3,13 +3,13 @@ let canvas = document.getElementById('Canvas');
 let startButton = document.getElementById('startButton');
 
 var lastRender = 0;
-var player_id = -1
+var player_id = -1;
 var player_configs = {
     'xPos': 100,
     'yPos': 100,
     'speed': 0.2,
     'direction': 0,
-}
+};
 
 $(document).keydown(function(e) {
     if (e.keyCode > 36 && e.keyCode < 41)
@@ -18,9 +18,9 @@ $(document).keydown(function(e) {
 
 // this does not emmit anything to server because 
 // other clients do not need to respond to it immediately.
-socket.on('createPlayerProfile', (num_players) => {
-    console.log(num_players)
-    player_id = num_players;
+socket.on('createPlayerProfile', (s_id) => {
+    console.log('(c)A user just connected with id ' + s_id);
+    player_id = s_id;
 });
 
 socket.on('state', (config) => {

@@ -17,21 +17,31 @@ server.listen(port, ()=> {
 });
 
 io.on('connection', (socket) => {
-  console.log('A user just connected with id ' + num_players + '.');
- 	config[num_players] = {'xPos': 100, 'yPos': 100, 'speed': 0.2, 'direction': 0};
- 	socket.emit('createPlayerProfile', num_players);
+  client_id = socket.id;
+  console.log('(s)A user just connected with id ' + client_id + '.');
+ 	config[client_id] = {'xPos': 100, 'yPos': 100, 'speed': 0.2, 'direction': 0};
+ 	
+  socket.emit('createPlayerProfile', client_id);
  	num_players += 1;
   socket.on('updateConfig', (id_and_configs) => {
-    id = id_and_configs.id;
-    if(id == -1){return;}
+    //console.log(id_and_configs);
+    c_id = id_and_configs['id'];
+    c_config = id_and_configs['configs']
+
+    console.log(c_id);
+    //console.log(c_config);
+    console.log(config[c_id]);
+
+    if(c_id == -1){return;}
     client_configs = id_and_configs.configs;
- 		config[id]['xPos'] = client_configs['xPos'];
- 		config[id]['yPos'] = client_configs['yPos'];
- 		config[id]['speed'] = client_configs['speed'];
- 		config[id]['direction'] = client_configs['direction'];
+ 		config[c_id]['xPos'] = c_config['xPos'];
+ 		config[c_id]['yPos'] = c_config['yPos'];
+ 		config[c_id]['speed'] = c_config['speed'];
+ 		config[c_id]['direction'] = c_config['direction'];
  	});
   socket.on('disconnect', () => {
-    console.log('A user has disconnected.');
+    console.log('A user has disconnected with id ' + socket.id);
+    delete config[socket.id];
   });
 });
 
