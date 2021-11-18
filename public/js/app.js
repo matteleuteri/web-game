@@ -1,7 +1,7 @@
 let socket = io();
 let canvas = document.getElementById('Canvas');
-
 let startButton = document.getElementById('startButton');
+
 var lastRender = 0;
 var player_id = -1
 var player_configs = {
@@ -44,9 +44,6 @@ function updateCanvas(xPos, yPos, ctx) {
     ctx.fill();
 }
 
-
-
-
 window.requestAnimationFrame(loop);
 function update(progress) {
     // Update the state of the world for the elapsed time since last render
@@ -54,8 +51,6 @@ function update(progress) {
     xPos = player_configs['xPos']
     yPos = player_configs['yPos']
     speed = player_configs['speed']
-
-
     if (direction == 0) {
         xPos -= (progress * speed);
         if (xPos < -1 * 20) {xPos = 600;}
@@ -77,10 +72,10 @@ function update(progress) {
     player_configs['yPos'] = yPos
     socket.emit('updateConfig', {id: player_id, configs: player_configs});
 }
+
 function loop(timestamp) {
   var progress = timestamp - lastRender;
   update(progress);
-  //drawCanvas();
   lastRender = timestamp;
   window.requestAnimationFrame(loop);
 }

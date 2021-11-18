@@ -2,17 +2,19 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
-//const publicPath = path.join(__dirname, '/../public');
 const port = process.env.PORT || 3000;
+
 let app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
+
+var num_players = 0;
+var config = {};
+
 app.use(express.static(path.join(__dirname, '/../public')));
 server.listen(port, ()=> {
-  console.log('Starting server on port '+port);
+  console.log('Starting server on port ' + port);
 });
-var num_players = 0
-var config = {};
 
 io.on('connection', (socket) => {
   console.log('A user just connected with id ' + num_players + '.');
@@ -32,6 +34,7 @@ io.on('connection', (socket) => {
     console.log('A user has disconnected.');
   });
 });
+
 // update state continuously
 setInterval(function() {
   io.sockets.emit('state', config);
