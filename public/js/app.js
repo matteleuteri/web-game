@@ -1,5 +1,7 @@
+import { drawCanvas } from '/js/Canvas.js';
+
 let socket = io();
-let canvas = document.getElementById('Canvas');
+// let canvas = document.getElementById('Canvas');
 let startButton = document.getElementById('startButton');
 
 var lastRender = 0;
@@ -24,33 +26,39 @@ socket.on('createPlayerProfile', (s_id) => {
 });
 
 socket.on('state', (config) => {
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, 600, 400);
-    ctx.beginPath();
-    for(var player_id in config) {
-        current_player = config[player_id];
-        current_x = current_player['xPos'];
-        current_y = current_player['yPos'];
-        updateCanvas(current_x, current_y, ctx);
-    }
-    ctx.stroke();
+    // var ctx = canvas.getContext("2d");
+    drawCanvas(config);
+
+
+    // ctx.clearRect(0, 0, 600, 400);
+    // ctx.beginPath();
+    // for(var player_id in config) {
+    //     current_player = config[player_id];
+    //     current_x = current_player['xPos'];
+    //     current_y = current_player['yPos'];
+    //     updateCanvas(current_x, current_y, ctx);
+    // }
+    // ctx.stroke();
+
+
+
 });
 
-function updateCanvas(xPos, yPos, ctx) {
-    ctx.moveTo(xPos, yPos);
-    ctx.lineTo(xPos + 20, yPos);
-    ctx.lineTo(xPos + 20, yPos + 20);
-    ctx.lineTo(xPos, yPos + 20)
-    ctx.fill();
-}
+// function updateCanvas(xPos, yPos, ctx) {
+//     ctx.moveTo(xPos, yPos);
+//     ctx.lineTo(xPos + 20, yPos);
+//     ctx.lineTo(xPos + 20, yPos + 20);
+//     ctx.lineTo(xPos, yPos + 20)
+//     ctx.fill();
+// }
 
 window.requestAnimationFrame(loop);
 function update(progress) {
     // Update the state of the world for the elapsed time since last render
-    direction = player_configs['direction']
-    xPos = player_configs['xPos']
-    yPos = player_configs['yPos']
-    speed = player_configs['speed']
+    let direction = player_configs['direction'];
+    let xPos = player_configs['xPos'];
+    let yPos = player_configs['yPos'];
+    let speed = player_configs['speed'];
     if (direction == 0) {
         xPos -= (progress * speed);
         if (xPos < -1 * 20) {xPos = 600;}
