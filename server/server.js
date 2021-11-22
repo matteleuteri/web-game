@@ -32,14 +32,17 @@ io.on('connection', (socket) => {
  		players[c_id].yPos = c_config.yPos;
  		players[c_id].speed = c_config.speed;
  		players[c_id].direction = c_config.direction;
+    socket.emit('checkCollision', players);
  	});
   socket.on('disconnect', () => {
     console.log('A user has disconnected with id ' + client_id);
+    num_players--;
     delete players[client_id];
   });
 });
 
 // update state continuously
 setInterval(function() {
-  io.sockets.emit('state', players);
+  let player_data = {players: players, player_count: num_players};
+  io.sockets.emit('state', player_data);
 }, 1000 / 60);

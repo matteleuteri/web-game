@@ -8,3 +8,29 @@ body {
   padding: 10px;
 }
 
+#playGrid {
+  display:  grid;
+  grid-template-rows: 25% 50% 25%;
+  grid-template-columns: 20% 60% 20%;
+  height: 800px;
+  width: 1000px;
+  margin: auto;
+}
+
+#startButton {
+  grid-row: 1;
+  grid-column: 2;
+  margin: auto;
+}
+
+#Canvas {
+  grid-row: 2;
+  grid-column: 2;
+  margin: auto;
+}
+
+#playerCount {
+  grid-row: 3;
+  grid-column: 2;
+  margin: auto;
+}
