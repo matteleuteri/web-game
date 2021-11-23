@@ -1,5 +1,5 @@
 import { drawCanvas } from '/js/Canvas.js';
-import { updateConfiguration, checkCollision } from '/js/PlayersConfiguration.js';
+import { updateConfiguration, collide } from '/js/PlayersConfiguration.js';
 
 let socket = io();
 let startButton = document.getElementById('startButton');
@@ -9,7 +9,7 @@ let player_id = -1;
 let player_configs = {
     xPos: 100,
     yPos: 100,
-    speed: 0.2,
+    speed: 0.1,
     direction: 0,
 };
 
@@ -35,9 +35,9 @@ socket.on('checkCollision', (players) => {
         if(player != player_id) {
             let other_player_configs = players[player];
             let this_player_configs = player_configs;
-            if(checkCollision(other_player_configs, this_player_configs)) {
-                console.log('collision detected!');
-            }
+            let new_dir_players = collide(other_player_configs, this_player_configs);
+            players[player] = new_dir_players.p1;
+            player_configs = new_dir_players.p2;
         }
 
     }
