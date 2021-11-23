@@ -3,22 +3,22 @@ export function updateConfiguration(progress, player_configs) {
     let xPos = player_configs.xPos;
     let yPos = player_configs.yPos;
     let speed = player_configs.speed;
-    if (direction == 0) {
+    if (direction === 0) {
         xPos -= (progress * speed);
         if (xPos < -1 * 20) 
             xPos = 600;
     }
-    else if (direction == 1) {
+    else if (direction === 1) {
         yPos -= (progress * speed);
         if (yPos < -1 * 20) 
             yPos = 400;
     }
-    else if (direction == 2) {
+    else if (direction === 2) {
         xPos += (progress * speed);
         if (xPos > 600) 
             xPos = -1 * 20;
     }
-    else if (direction == 3) {
+    else if (direction === 3) {
         yPos += (progress * speed);
         if (yPos > 400) 
             yPos = -1 * 20;
@@ -40,12 +40,13 @@ export function collide(p1, p2) {
         if((p1d + p2d) % 2 === 0) {
             p1.direction = p2d;
             p2.direction = p1d; 
+            console.log('head on collision!');
         }
         else {
             //find the player causing the collision
             if(Math.abs(p1x - p2x) < Math.abs(p1y - p2y)) {
                 //guy going in y dir gets reversed and guy going in x direction goes in other guys original direction
-                if(p1d % 2 == 1) {
+                if(p1d % 2 === 1) {
                     p1.direction = (p1d + 2) % 4;
                     p2.direction = p1d;
                 }
@@ -55,7 +56,7 @@ export function collide(p1, p2) {
                 }
             }
             else {
-                if(p1d % 2 == 0) {
+                if(p1d % 2 === 0) {
                     p1.direction = (p1d + 2) % 4;
                     p2.direction = p1d;
                 }
@@ -66,6 +67,5 @@ export function collide(p1, p2) {
             }
         }
     }
-
     return { p1, p2 };
 }

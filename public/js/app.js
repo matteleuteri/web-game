@@ -23,10 +23,10 @@ socket.on('createPlayerProfile', (my_client_id) => {
 });
 
 socket.on('state', (player_data) => {
-    if(player_data.player_count == 1)
-        document.getElementById('playerCount').innerHTML = "Only you are connected. Share the link with yor friends!";
+    if(player_data.player_count === 1)
+        document.getElementById('playerCount').innerHTML = "Only you are connected. Share the link with your friends!";
     else
-        document.getElementById('playerCount').innerHTML = "There are " + player_data.player_count + " players. Share the link with yor friends!";        
+        document.getElementById('playerCount').innerHTML = `There are ${player_data.player_count} players. Share the link with your friends!`;        
     drawCanvas(player_data.players);
 });
 
@@ -34,12 +34,10 @@ socket.on('checkCollision', (players) => {
     for(let player in players) {
         if(player != player_id) {
             let other_player_configs = players[player];
-            let this_player_configs = player_configs;
-            let new_dir_players = collide(other_player_configs, this_player_configs);
+            let new_dir_players = collide(other_player_configs, player_configs);
             players[player] = new_dir_players.p1;
-            player_configs = new_dir_players.p2;
+            players[player_id] = new_dir_players.p2;
         }
-
     }
 });
 
