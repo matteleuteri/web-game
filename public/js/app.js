@@ -24,7 +24,7 @@ socket.on('createPlayerProfile', (my_client_id) => {
 
 socket.on('state', (player_data) => {
     if(player_data.player_count === 1)
-        document.getElementById('playerCount').innerHTML = "Only you are connected. Share the link with your friends!";
+        document.getElementById('playerCount').innerHTML = `Only you are connected. Share the link with your friends!`;
     else
         document.getElementById('playerCount').innerHTML = `There are ${player_data.player_count} players. Share the link with your friends!`;        
     drawCanvas(player_data.players);
