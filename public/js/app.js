@@ -31,6 +31,13 @@ socket.on('state', (player_data) => {
 });
 
 socket.on('checkCollision', (players) => {
+
+
+
+	// TODO
+	// move the loop and conditionals into playerconfiguration.js, 
+    // the only thing here should be the call to the imported functions
+    // and updating the 'players' object
     for(let player in players) {
         if(player != player_id) {
             let other_player_configs = players[player];
