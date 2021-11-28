@@ -7,6 +7,7 @@ let startButton = document.getElementById('startButton');
 let lastRender = 0;
 let player_id = -1;
 let player_configs = {
+	//add a color attribute to distinguish players
     xPos: 100,
     yPos: 100,
     speed: 0.1,
@@ -31,9 +32,6 @@ socket.on('state', (player_data) => {
 });
 
 socket.on('checkCollision', (players) => {
-
-
-
 	// TODO
 	// move the loop and conditionals into playerconfiguration.js, 
     // the only thing here should be the call to the imported functions
