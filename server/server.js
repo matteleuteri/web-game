@@ -40,8 +40,12 @@ io.on('connection', (socket) => {
 setInterval(function() {
     let player_data = {players: players, player_count: num_players};
     io.sockets.emit('state', player_data);
-    // CHECK HERE FOR COLLISIONS
+    collide(players);
 	for(let p in players) {
 		updateConfiguration(players[p]);
 	}
 }, 1000 / 60);
+
+
+
+

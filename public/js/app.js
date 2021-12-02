@@ -2,13 +2,7 @@ import { drawCanvas } from '/js/Canvas.js';
 
 let socket = io();
 let player_id = -1;
-let player_configs = {
-	//add a color attribute to distinguish players
-    xPos: 100,
-    yPos: 100,
-    speed: 2.5,
-    direction: 0,
-};
+let player_configs = {xPos: 100, yPos: 100, speed: 2.5, direction: 0};
 
 $(document).keydown(function(e) {
     if (e.keyCode > 36 && e.keyCode < 41)
