@@ -1,22 +1,20 @@
 import { drawCanvas } from '/js/Canvas.js';
-import { updateConfiguration, collide } from '/js/PlayersConfiguration.js';
 
 let socket = io();
-let startButton = document.getElementById('startButton');
-
-let lastRender = 0;
 let player_id = -1;
 let player_configs = {
 	//add a color attribute to distinguish players
     xPos: 100,
     yPos: 100,
-    speed: 0.1,
+    speed: 2.5,
     direction: 0,
 };
 
 $(document).keydown(function(e) {
     if (e.keyCode > 36 && e.keyCode < 41)
         player_configs.direction = e.keyCode - 37;
+    let new_dir_data = {id: player_id, new_dir: player_configs.direction};
+    socket.emit('update_dir', new_dir_data);
 });
 
 socket.on('createPlayerProfile', (my_client_id) => {
@@ -31,42 +29,3 @@ socket.on('state', (player_data) => {
     drawCanvas(player_data.players);
 });
 
-socket.on('checkCollision', (players) => {
-	// TODO
-	// move the loop and conditionals into playerconfiguration.js, 
-    // the only thing here should be the call to the imported functions
-    // and updating the 'players' object
-    for(let player in players) {
-        if(player != player_id) {
-            let other_player_configs = players[player];
-            let new_dir_players = collide(other_player_configs, player_configs);
-            players[player] = new_dir_players.p1;
-            players[player_id] = new_dir_players.p2;
-        }
-    }
-});
-
-function update(progress) {
-    player_configs = updateConfiguration(progress, player_configs);
-    socket.emit('updateConfig', {id: player_id, configs: player_configs});
-}
-
-function loop(timestamp) {
-  let progress = timestamp - lastRender;
-  update(progress);
-  lastRender = timestamp;
-  window.requestAnimationFrame(loop);
-}
-window.requestAnimationFrame(loop);
-
-
-
-
-
-
-
-
-
-
-
-// HAPPY THANKSGIVING I'll get back soon!
