@@ -22,8 +22,9 @@ server.listen(port, ()=> {
 io.on('connection', (socket) => {
     let client_id = socket.id;
     console.log('A user just connected with id ' + client_id + '.');
- 	players[client_id] = {'xPos': 100, 'yPos': 100, 'speed': 2.5, 'direction': 0};
+ 	players[client_id] = {'xPos': 100, 'yPos': 100, 'speed': 2.5, 'direction': 0, 'bounces': 0};
     socket.emit('createPlayerProfile', client_id);
+    io.sockets.emit('updatePlayerList', client_id);
  	num_players++;
     socket.on('update_dir', (new_dir_data) => {
     	let to_update = players[new_dir_data.id];
@@ -41,9 +42,8 @@ setInterval(function() {
     let player_data = {players: players, player_count: num_players};
     io.sockets.emit('state', player_data);
     collide(players);
-	for(let p in players) {
+	for(let p in players)
 		updateConfiguration(players[p]);
-	}
 }, 1000 / 60);
 
 

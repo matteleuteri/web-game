@@ -1,36 +1,41 @@
 body {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #F00F00;
-  font-family: Arial;
-  margin: 0;
-  padding: 10px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #F00F00;
+    font-family: Arial;
+    margin: 0;
+    padding: 10px;
 }
 
 #playGrid {
-  display:  grid;
-  grid-template-rows: 25% 50% 25%;
-  grid-template-columns: 20% 60% 20%;
-  height: 800px;
-  width: 1000px;
-  margin: auto;
+    display:  grid;
+    grid-template-rows: 25% 50% 25%;
+    grid-template-columns: 20% 60% 20%;
+    height: 800px;
+    width: 1000px;
+    margin: auto;
 }
 
 #titleImg {
-  grid-row: 1;
-  grid-column: 2;
-  margin: auto;
+    grid-row: 1;
+    grid-column: 2;
+    margin: auto;
 }
 
 #Canvas {
-  grid-row: 2;
-  grid-column: 2;
-  margin: auto;
+    grid-row: 2;
+    grid-column: 2;
+    margin: auto;
 }
 
 #playerCount {
-  grid-row: 3;
-  grid-column: 2;
-  margin: auto;
+    grid-row: 3;
+    grid-column: 2;
+    margin: auto;
+}
+
+#playerList {
+    grid-row: 1/4;
+    grid-column: 3;
 }
