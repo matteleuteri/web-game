@@ -22,18 +22,25 @@ server.listen(port, ()=> {
 io.on('connection', (socket) => {
     let client_id = socket.id;
     console.log('A user just connected with id ' + client_id + '.');
- 	players[client_id] = {'xPos': 100, 'yPos': 100, 'speed': 2.5, 'direction': 0, 'bounces': 0};
+ 	players[client_id] = {'name': '', 'xPos': 100, 'yPos': 100, 'speed': 2, 'direction': 0, 'bounces': 0};
     socket.emit('createPlayerProfile', client_id);
-    io.sockets.emit('updatePlayerList', client_id);
+    //io.sockets.emit('updatePlayerList', players);
  	num_players++;
     socket.on('update_dir', (new_dir_data) => {
     	let to_update = players[new_dir_data.id];
     	to_update.direction = new_dir_data.new_dir;
     });
+    socket.on('setName', (nameData) => {
+    	for(let p in players) {
+    		if(p === nameData.player_id)
+    			players[p].name = nameData.nickname;
+    	}
+    });
     socket.on('disconnect', () => {
         console.log('A user has disconnected with id ' + client_id);
         num_players--;
         delete players[client_id];
+        // io.sockets.emit('updatePlayerList', players);
     });
 });
 
@@ -44,6 +51,8 @@ setInterval(function() {
     collide(players);
 	for(let p in players)
 		updateConfiguration(players[p]);
+    io.sockets.emit('updatePlayerList', players);
+
 }, 1000 / 60);
 
 
