@@ -16,15 +16,14 @@ let players = {};
 
 app.use(express.static(path.join(__dirname, '/../public')));
 server.listen(port, ()=> {
-    console.log('Starting server on port ' + port);
+    console.log(`Starting server on port ${port}`);
 });
 
 io.on('connection', (socket) => {
     let client_id = socket.id;
-    console.log('A user just connected with id ' + client_id + '.');
+    console.log(`A user just connected with id ${client_id}.`);
  	players[client_id] = {'name': '', 'xPos': 100, 'yPos': 100, 'speed': 2, 'direction': 0, 'bounces': 0};
     socket.emit('createPlayerProfile', client_id);
-    //io.sockets.emit('updatePlayerList', players);
  	num_players++;
     socket.on('update_dir', (new_dir_data) => {
     	let to_update = players[new_dir_data.id];
@@ -37,10 +36,9 @@ io.on('connection', (socket) => {
     	}
     });
     socket.on('disconnect', () => {
-        console.log('A user has disconnected with id ' + client_id);
+        console.log(`A user has disconnected with id ${client_id}`);
         num_players--;
         delete players[client_id];
-        // io.sockets.emit('updatePlayerList', players);
     });
 });
 

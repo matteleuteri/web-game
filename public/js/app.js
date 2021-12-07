@@ -25,15 +25,14 @@ socket.on('updatePlayerList', (players) => {
         document.getElementById('playerCount').innerHTML = `Only you are connected. Share the URL with your friends!`;
     else
         document.getElementById('playerCount').innerHTML = `There are ${player_count} players. Share the URL with your friends!`;   
-	//need a way to get player nickname from id
-	//need to append previously joined players to list too
 	let player_list = document.querySelector('ul');
 	player_list.innerHTML = '';
 	for(let p in players) {
 		if(players[p].name != '') {
 			let player_score = players[p].bounces / 2;
 			let node = document.createElement('li');
-			node.appendChild(document.createTextNode("name: " + players[p].name + ", score: " + player_score));
+			// node.appendChild(document.createTextNode("name: " + players[p].name + ", score: " + player_score));
+			node.appendChild(document.createTextNode(`name: ${players[p].name}, score: ${player_score}`));
 			player_list.appendChild(node);
 		}
 	}
