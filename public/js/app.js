@@ -31,7 +31,6 @@ socket.on('updatePlayerList', (players) => {
 		if(players[p].name != '') {
 			let player_score = players[p].bounces / 2;
 			let node = document.createElement('li');
-			// node.appendChild(document.createTextNode("name: " + players[p].name + ", score: " + player_score));
 			node.appendChild(document.createTextNode(`name: ${players[p].name}, score: ${player_score}`));
 			player_list.appendChild(node);
 		}
