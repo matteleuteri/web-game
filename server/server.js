@@ -4,6 +4,7 @@ import http from 'http';
 import express from 'express';
 import socketIO from 'socket.io';
 import { updateConfiguration, collide } from '../public/js/PlayersConfiguration.js';
+import { getHighScores } from '../server/scoreReader.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -50,6 +51,9 @@ setInterval(function() {
 	for(let p in players)
 		updateConfiguration(players[p]);
     io.sockets.emit('updatePlayerList', players);
+
+	
+	let highScores = getHighScores('server/scores.txt', players);
 
 }, 1000 / 60);
 
