@@ -10,7 +10,7 @@ export function getHighScores(fname, players) {
 	// lineW +=  highScores[1][0] + " " + highScores[1][1] + "\n";
 	// lineW += highScores[2][0] + " " + highScores[2][1];
 
-	console.log(highScores);
+	//console.log(highScores);
 
 	let s = buildString(highScores);
 
@@ -18,7 +18,7 @@ export function getHighScores(fname, players) {
 		fs.writeFile(fname, s, function (err) {
   			if (err) 
   				throw err;
-  			console.log('Replaced!');
+  			//console.log('Replaced!');
 		});
 	}
 	
