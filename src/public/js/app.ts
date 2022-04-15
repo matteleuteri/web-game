@@ -1,22 +1,29 @@
 // import { drawCanvas } from '/js/Canvas.js';
-import io from "socket.io-client"
-let socket = io();
-let player_id = -1;
+import { io, Socket } from "socket.io-client";
 
+// please note that the types are reversed
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
+
+// import {io} from "/../../node_modules/socket.io-client/dist/socket.io.js"
+// var io = require('socket.io-client');
+
+// let player_id = -1;
+
+console.log("hey bitch");
 // $(document).keydown(function(e) {
 //     if (e.keyCode > 36 && e.keyCode < 41)
 //     	socket.emit('update_dir', {id: player_id, new_dir: e.keyCode - 37});
 // });
 
-socket.on('createPlayerProfile', (my_client_id) => {
-    player_id = my_client_id;
-});
+// socket.on('createPlayerProfile', (my_client_id) => {
+    // player_id = my_client_id;
+// });
 
-socket.on('state', (player_data) => {  
+//msocket.on('state', (player_data) => {  
     //drawCanvas(player_data.players);
-});
+// });
 
-socket.on('updatePlayerList', (players) => {
+// socket.on('updatePlayerList', (players) => {
 	// TODO: have the player list also be updated in vue.js, just like the number of players text
 	// let player_list = document.querySelector('ul');
 	// vue_pc.num_of_players = 0;
@@ -31,7 +38,7 @@ socket.on('updatePlayerList', (players) => {
 	// 	}
 	// }
 	// vue_pc.displayPlayerCount();
-});
+// });
 
 // $('#submit-name').click(function(){
 //     $('#name-form').hide();

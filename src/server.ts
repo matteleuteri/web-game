@@ -13,7 +13,9 @@ const __dirname = dirname(__filename);
 const port = process.env.PORT || 3000;
 const app = express();
 const server = createServer(app);
-const io = Server(server);
+const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>();
+
+//const io = Server(server);
 let num_players: number = 0;
 
 let players: SocketIDMap = {};
@@ -28,6 +30,9 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
+// app.get('/', (req, res) => {public
+//     res.sendFile(__dirname + '/public/app.js');
+// });
 
 io.on('connection', (socket: Socket) => {
     let client_id: string = socket.id;
