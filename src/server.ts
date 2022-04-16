@@ -6,50 +6,21 @@ import express from 'express';
 import Server from "socket.io";
 // import { updateConfiguration, collide } from '../public/js/PlayersConfiguration.js';
 // import { getHighScores } from './scoreReader.js';
-// import { Socket } from 'socket.io-client';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { Socket } from "socket.io-client"// for the type
 const port = process.env.PORT || 3000;
+
 const app = express();
 const server = createServer(app);
-//const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>(server);
-
-const io = new Server(server);
-let num_players: number = 0;
-
-let players: SocketIDMap = {};
-
-server.listen(port, ()=> {
-    console.log(`Starting server on port ${port}`);
-});
+const io = Server(server);
 
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-
-
-// app.use('/static', express.static('node_modules'));
-
-
-
-
-
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-});
-
-// app.get('/', (req, res) => {public
-//     res.sendFile(__dirname + '/public/app.js');
-// });
-
-io.on('connection', (socket: any) => {
+io.on('connection', (socket: Socket) => {
     let client_id: string = socket.id;
     console.log(`A user just connected with id ${client_id}.`);
  	players[client_id] = {name: '', xPos: 100, yPos: 100, speed: 2, direction: 0, bounces: 0};
     socket.emit('createPlayerProfile', client_id);
  	num_players++;
-     console.log(`num players: ${num_players}`);
+    console.log(`num players: ${num_players}`);
     // socket.on('update_dir', (new_dir_data) => {
     // 	let to_update = players[new_dir_data.id];
     // 	to_update.direction = new_dir_data.new_dir;
@@ -66,6 +37,38 @@ io.on('connection', (socket: any) => {
         // delete players[client_id];
     });
 });
+
+let num_players: number = 0;
+let players: SocketIDMap = {};
+
+server.listen(port, ()=> {
+    console.log(`Starting server on port ${port}`);
+});
+
+
+
+
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
+app.use(express.static(path.join(__dirname, '/public')));
+
+// app.get('/', (req, res) => {public
+//     res.sendFile(__dirname + '/public/app.js');
+// });
+
+
+
+
+
+
+
 
 // update state continuously
 // setInterval(function() {

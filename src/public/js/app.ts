@@ -1,14 +1,13 @@
-// import { io } from "/socket.io-client";
+// import { io, Socket } from "/socket.io-client";
 // import { drawCanvas } from '/js/Canvas.js';
- 
-//let player_id: string = "-1";
-//let socket = io()
+
+let player_id: string = "-1";
+// let socket = io()
 
 // socket.on('createPlayerProfile', (my_client_id: string) => {
 //     player_id = my_client_id;
 //     console.log("my client id is set");
 // });
-
 // socket.on('state', (player_data) => {  
     //drawCanvas(player_data.players);
 // });
