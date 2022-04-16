@@ -1,24 +1,58 @@
-import { fileURLToPath } from 'url';
-import {dirname } from 'path';
+import express from "express";
 import * as path from 'path'
+import { Server, Socket} from "socket.io";
 import { createServer } from 'http';
-import express from 'express';
-import Server from "socket.io";
-// import { updateConfiguration, collide } from '../public/js/PlayersConfiguration.js';
-// import { getHighScores } from './scoreReader.js';
-import { Socket } from "socket.io-client"// for the type
+
 const port = process.env.PORT || 3000;
 
 const app = express();
-const server = createServer(app);
-const io = Server(server);
+const httpServer = createServer(app);
+
+// const io = new Server(httpServer);
+const io = new Server(httpServer, {
+  transports: ["websocket", "polling"],
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+  allowEIO3: true,
+});
+
+
+
+
+import { fileURLToPath } from 'url';
+import {dirname } from 'path';
+
+
+
+// import { updateConfiguration, collide } from '../public/js/PlayersConfiguration.js';
+// import { getHighScores } from './scoreReader.js';
+// import { Socket } from "socket.io-client"// for the typedef
+
+
+
+let num_players: number = 0;
+// let players: SocketIDMap = {};
+
+
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
+console.log(__dirname);
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
+app.use(express.static(path.join(__dirname, '/public')));
 
 
 io.on('connection', (socket: Socket) => {
     let client_id: string = socket.id;
     console.log(`A user just connected with id ${client_id}.`);
- 	players[client_id] = {name: '', xPos: 100, yPos: 100, speed: 2, direction: 0, bounces: 0};
-    socket.emit('createPlayerProfile', client_id);
+ 	//players[client_id] = {name: '', xPos: 100, yPos: 100, speed: 2, direction: 0, bounces: 0};
+    //socket.emit('createPlayerProfile', client_id);
  	num_players++;
     console.log(`num players: ${num_players}`);
     // socket.on('update_dir', (new_dir_data) => {
@@ -38,27 +72,10 @@ io.on('connection', (socket: Socket) => {
     });
 });
 
-let num_players: number = 0;
-let players: SocketIDMap = {};
 
-server.listen(port, ()=> {
-    console.log(`Starting server on port ${port}`);
-});
-
-
-
-
-
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
-});
-
-app.use(express.static(path.join(__dirname, '/public')));
-
+// app.get('/js', (req, res) => {
+//     res.sendFile(__dirname + '/public/js');
+// });
 // app.get('/', (req, res) => {public
 //     res.sendFile(__dirname + '/public/app.js');
 // });
@@ -84,3 +101,6 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 
 
+httpServer.listen(port, ()=> {
+    console.log(`Starting server on port ${port}`);
+});

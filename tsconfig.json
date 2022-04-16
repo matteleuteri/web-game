@@ -5,16 +5,23 @@
       "allowJs": true, //set to false after migration complete
       "noImplicitAny": true,
       "moduleResolution": "node",
-      "lib": ["es2018","DOM"],
-      "module": "esnext",
-      "target": "es2018",
+      "module": "commonjs",
+      "target": "es6",
+      "outDir": "./built",
       "baseUrl": ".",
       "paths": {
-        "*": ["node_modules/*", "src/types/*"]
-      },
-      "typeRoots": ["node_modules/@types", "src/types"],
-      "outDir": "./built"
-    },
-    "include": ["./src/**/*", "serverDeclarations.d.ts", "server.ts"],
-    "exclude": ["node_modules"]
-  }
+        "*": ["node_modules/*"] 
+      }
+    }
+}
+
+
+
+//        "lib": ["es2018","DOM"],
+    //   "typeRoots": ["node_modules/@types", "src/types"],
+    // },
+
+
+
+    // "include": ["./src/**/*", "serverDeclarations.d.ts", "server.ts"],
+    // "exclude": ["node_modules"]

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Matt's Bounce Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Matthew Eleuteri">
+    <meta name="keywords" content="Matt's game">
+    <meta name="description" content="This is some random game I made"/>
+    <link rel="shortcut icon" href="imgs/favicon.ico">
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+<body>
+    <div id='playGrid'>
+<!--         <div id="name-form">
+            <label for="name">Enter a short nickname: </label>
+            <input type="text" id="name" value="" required>
+            <button id='submit-name' value="Submit">submit</button>
+        </div>  -->
+        <img id='titleImg' src='/imgs/title.png'></img>
+        <canvas id="Canvas" width="600" height="400"style="border:5px solid #000000;"></canvas>       
+<!--         <div id='playerCount'>{{ displayPlayerCount() }}</div>   
+        <ul id='playerList' type='1'></ul>   -->      
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>const socket = io();</script>
+    <!-- <script src="/js/app.js" charset="utf-8"></script> -->
+</body>
+</html>
