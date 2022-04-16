@@ -1,11 +1,15 @@
-// import { io, Socket } from "/socket.io-client";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+// import io from "/socket.io-client";
 // import { drawCanvas } from '/js/Canvas.js';
+const socket_io_client_1 = require("socket.io-client");
 let player_id = "-1";
-// let socket = io()
-// socket.on('createPlayerProfile', (my_client_id: string) => {
-//     player_id = my_client_id;
-//     console.log("my client id is set");
-// });
+const socket = (0, socket_io_client_1.io)();
+console.log("hello client");
+socket.on('createPlayerProfile', (my_client_id) => {
+    player_id = my_client_id;
+    console.log("my client id is set");
+});
 // socket.on('state', (player_data) => {  
 //drawCanvas(player_data.players);
 // });
@@ -46,12 +50,12 @@ let player_id = "-1";
 // 		}
 // 	}
 // });
-document.addEventListener('keydown', function (event) {
-    if (event.keyCode == 37) {
-        console.log('Left was pressed');
-    }
-    else if (event.keyCode == 39) {
-        alert('Right was pressed');
-    }
-});
+// document.addEventListener('keydown', function(event) {
+//     if(event.keyCode == 37) {
+//         console.log('Left was pressed');
+//     }
+//     else if(event.keyCode == 39) {
+//         alert('Right was pressed');
+//     }
+// });
 //# sourceMappingURL=app.js.map

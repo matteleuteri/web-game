@@ -22,8 +22,8 @@ const io = new Server(httpServer, {
 
 
 
-import { fileURLToPath } from 'url';
-import {dirname } from 'path';
+// import { fileURLToPath } from 'url';
+// import {dirname } from 'path';
 
 
 
@@ -34,12 +34,13 @@ import {dirname } from 'path';
 
 
 let num_players: number = 0;
-// let players: SocketIDMap = {};
+let players: SocketIDMap = {};
 
 
 
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
+
 console.log(__dirname);
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
@@ -51,8 +52,8 @@ app.use(express.static(path.join(__dirname, '/public')));
 io.on('connection', (socket: Socket) => {
     let client_id: string = socket.id;
     console.log(`A user just connected with id ${client_id}.`);
- 	//players[client_id] = {name: '', xPos: 100, yPos: 100, speed: 2, direction: 0, bounces: 0};
-    //socket.emit('createPlayerProfile', client_id);
+ 	players[client_id] = {name: '', xPos: 100, yPos: 100, speed: 2, direction: 0, bounces: 0};
+    socket.emit('createPlayerProfile', client_id);
  	num_players++;
     console.log(`num players: ${num_players}`);
     // socket.on('update_dir', (new_dir_data) => {

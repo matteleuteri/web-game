@@ -2,17 +2,17 @@
 // interface ImportMeta {
 //     __dirname: string;
 // }
-// interface SocketIDMap {
-//     [index: string]: Player; 
-// }
-// interface Player {
-//     name: string;
-//     xPos: number;
-//     yPos: number;
-//     speed: number;
-//     direction: number;
-//     bounces: number;
-// }
+interface SocketIDMap {
+    [index: string]: Player; 
+}
+interface Player {
+    name: string;
+    xPos: number;
+    yPos: number;
+    speed: number;
+    direction: number;
+    bounces: number;
+}
 // interface ServerToClientEvents {
 //   noArg: () => void;
 //   basicEmit: (a: number, b: string, c: Buffer) => void;

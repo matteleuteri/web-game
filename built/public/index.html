@@ -9,7 +9,6 @@
     <meta name="description" content="This is some random game I made"/>
     <link rel="shortcut icon" href="imgs/favicon.ico">
     <link rel="stylesheet" href="/css/main.css">
-
 </head>
 <body>
     <div id='playGrid'>
@@ -23,8 +22,21 @@
 <!--         <div id='playerCount'>{{ displayPlayerCount() }}</div>   
         <ul id='playerList' type='1'></ul>   -->      
     </div>
+    <script> var exports = {}; </script>
+
     <script src="/socket.io/socket.io.js"></script>
-    <script>const socket = io();</script>
-    <!-- <script src="/js/app.js" charset="utf-8"></script> -->
-</body>
+    <script>
+let player_id = "-1";
+let socket = io();
+console.log("hello client");
+
+socket.on('createPlayerProfile', (my_client_id) => {
+    player_id = my_client_id;
+    console.log("my client id is set");
+});
+
+
+    </script>
+<!--     <script type='module' src="/js/app.js" charset="utf-8"></script>
+ --></body>
 </html>

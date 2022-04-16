@@ -43,11 +43,13 @@ const io = new socket_io_1.Server(httpServer, {
     },
     allowEIO3: true,
 });
+// import { fileURLToPath } from 'url';
+// import {dirname } from 'path';
 // import { updateConfiguration, collide } from '../public/js/PlayersConfiguration.js';
 // import { getHighScores } from './scoreReader.js';
 // import { Socket } from "socket.io-client"// for the typedef
 let num_players = 0;
-// let players: SocketIDMap = {};
+let players = {};
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 console.log(__dirname);
@@ -58,8 +60,8 @@ app.use(express_1.default.static(path.join(__dirname, '/public')));
 io.on('connection', (socket) => {
     let client_id = socket.id;
     console.log(`A user just connected with id ${client_id}.`);
-    //players[client_id] = {name: '', xPos: 100, yPos: 100, speed: 2, direction: 0, bounces: 0};
-    //socket.emit('createPlayerProfile', client_id);
+    players[client_id] = { name: '', xPos: 100, yPos: 100, speed: 2, direction: 0, bounces: 0 };
+    socket.emit('createPlayerProfile', client_id);
     num_players++;
     console.log(`num players: ${num_players}`);
     // socket.on('update_dir', (new_dir_data) => {
