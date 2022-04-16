@@ -1,25 +1,15 @@
+// import { io } from "/socket.io-client";
 // import { drawCanvas } from '/js/Canvas.js';
-import { io, Socket } from "socket.io-client";
+ 
+//let player_id: string = "-1";
+//let socket = io()
 
-// please note that the types are reversed
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
-
-// import {io} from "/../../node_modules/socket.io-client/dist/socket.io.js"
-// var io = require('socket.io-client');
-
-// let player_id = -1;
-
-console.log("hey bitch");
-// $(document).keydown(function(e) {
-//     if (e.keyCode > 36 && e.keyCode < 41)
-//     	socket.emit('update_dir', {id: player_id, new_dir: e.keyCode - 37});
+// socket.on('createPlayerProfile', (my_client_id: string) => {
+//     player_id = my_client_id;
+//     console.log("my client id is set");
 // });
 
-// socket.on('createPlayerProfile', (my_client_id) => {
-    // player_id = my_client_id;
-// });
-
-//msocket.on('state', (player_data) => {  
+// socket.on('state', (player_data) => {  
     //drawCanvas(player_data.players);
 // });
 
@@ -62,3 +52,15 @@ console.log("hey bitch");
 // 		}
 // 	}
 // });
+
+
+
+
+document.addEventListener('keydown', function(event) {
+    if(event.keyCode == 37) {
+        console.log('Left was pressed');
+    }
+    else if(event.keyCode == 39) {
+        alert('Right was pressed');
+    }
+});

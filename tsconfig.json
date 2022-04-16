@@ -5,7 +5,7 @@
       "allowJs": true, //set to false after migration complete
       "noImplicitAny": true,
       "moduleResolution": "node",
-      "lib": ["es2018"],
+      "lib": ["es2018","DOM"],
       "module": "esnext",
       "target": "es2018",
       "baseUrl": ".",

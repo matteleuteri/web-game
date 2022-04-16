@@ -4,18 +4,18 @@ import * as path from 'path'
 import { createServer } from 'http';
 import express from 'express';
 import Server from "socket.io";
-//import { updateConfiguration, collide } from '../public/js/PlayersConfiguration.js';
-//import { getHighScores } from './scoreReader.js';
-import { Socket } from 'socket.io-client';
+// import { updateConfiguration, collide } from '../public/js/PlayersConfiguration.js';
+// import { getHighScores } from './scoreReader.js';
+// import { Socket } from 'socket.io-client';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const port = process.env.PORT || 3000;
 const app = express();
 const server = createServer(app);
-const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>();
+//const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>(server);
 
-//const io = Server(server);
+const io = new Server(server);
 let num_players: number = 0;
 
 let players: SocketIDMap = {};
@@ -24,7 +24,16 @@ server.listen(port, ()=> {
     console.log(`Starting server on port ${port}`);
 });
 
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+// app.use('/static', express.static('node_modules'));
+
+
+
+
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
@@ -34,11 +43,11 @@ app.get('/', (req, res) => {
 //     res.sendFile(__dirname + '/public/app.js');
 // });
 
-io.on('connection', (socket: Socket) => {
+io.on('connection', (socket: any) => {
     let client_id: string = socket.id;
     console.log(`A user just connected with id ${client_id}.`);
  	players[client_id] = {name: '', xPos: 100, yPos: 100, speed: 2, direction: 0, bounces: 0};
-    // socket.emit('createPlayerProfile', client_id);
+    socket.emit('createPlayerProfile', client_id);
  	num_players++;
      console.log(`num players: ${num_players}`);
     // socket.on('update_dir', (new_dir_data) => {
