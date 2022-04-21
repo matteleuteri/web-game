@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Matt's Bounce Game</title>
+    <title>random io game</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Matthew Eleuteri">
     <meta name="keywords" content="Matt's game">
-    <meta name="description" content="This is a game I made"/>
-    <link rel="shortcut icon" href="imgs/favicon.ico">
+    <meta name="description" content="This is some random game I made"/>
+    <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" href="/css/main.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-
 </head>
 <body>
     <div id='playGrid'>
@@ -20,8 +18,8 @@
             <button id='submit-name' value="Submit">submit</button>
         </div> 
         <img id='titleImg' src='/imgs/title.png'></img>
-        <canvas id="Canvas" width="600" height="400"style="border:5px solid #000000;"></canvas>       
-        <div id='playerCount'>{{ displayPlayerCount() }}</div>   
+        <canvas id="Canvas" width="600" height="400"style="border:1px solid #000000;"></canvas>       
+        <div id='playerCount'>There are no players here.</div>   
         <ul id='playerList' type='1'></ul>        
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

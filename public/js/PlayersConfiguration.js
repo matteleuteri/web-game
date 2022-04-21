@@ -1,9 +1,8 @@
-export function updateState(player_config) {
-	console.log("inside update state");
-    let direction = player_config.direction;
-    let xPos = player_config.xPos;
-    let yPos = player_config.yPos;
-    let speed = player_config.speed;
+export function updateConfiguration(player_configs) {
+    let direction = player_configs.direction;
+    let xPos = player_configs.xPos;
+    let yPos = player_configs.yPos;
+    let speed = player_configs.speed;
     if (direction === 0) {
         xPos -= speed;
         if (xPos < -1 * 20) 
@@ -24,8 +23,9 @@ export function updateState(player_config) {
         if (yPos > 400) 
             yPos = -1 * 20;
     }
-    player_config.xPos = xPos;
-    player_config.yPos = yPos;
+    player_configs.xPos = xPos;
+    player_configs.yPos = yPos;
+    return player_configs;
 }
 
 export function collide(players) { //TODO: bounces get double counted because (p1, p2) != (p2, p1)
@@ -71,7 +71,8 @@ function willCollide(p1, p2) {
     	}
 		p1.bounces++;
 		p2.bounces++;
-		
     }
     return { p1, p2 };
 }
+
+
