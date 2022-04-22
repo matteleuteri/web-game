@@ -1,3 +1,3 @@
 # web-game
 
-to start, run npm start in the root directory
+to start, install the npm modules, then run npm start in the root directory
