@@ -2,12 +2,15 @@ import { drawCanvas } from '/js/Canvas.js';
 
 let socket = io();
 let player_id = -1;
-let start = false;
 let _players = {};
 let player_configs = {
 	'name': '',
-	 'xPos': 100, 'yPos': 100, 'speed': 2, 'direction': 0, 'bounces': 0};
-
+	 'xPos': 100, 
+	 'yPos': 100, 
+	 'speed': 2, 
+	 'direction': 0, 
+	 'bounces': 0 };
+ 
 $(document).keydown(function(e) {
     if (e.keyCode > 36 && e.keyCode < 41)
         player_configs.direction = e.keyCode - 37;
@@ -21,20 +24,12 @@ socket.on('createPlayerProfile', (my_client_id) => {
 
 socket.on('state', (player_data) => {  
 	_players = player_data.players;
-	// if(start) {
-	// 	drawCanvas(player_data.players);
-	// }
 });
 
 function mainLoop() {
 	//handleInput(); // for now it just changes direction
-
 	drawCanvas(_players);
-
-
-
 	requestAnimationFrame(mainLoop);
-	
 }
 
 socket.on('updatePlayerList', (players) => {
@@ -59,7 +54,6 @@ socket.on('updatePlayerList', (players) => {
 $('#submit-name').click(function(){
     $('#name-form').hide();
     // set nick name here
-    start = true;
     let nickname = document.getElementById('name').value;
     let nameData = {player_id, nickname};
     socket.emit('setName', nameData);
