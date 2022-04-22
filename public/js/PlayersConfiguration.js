@@ -28,20 +28,28 @@ export function updateConfiguration(player_configs) {
     return player_configs;
 }
 
-export function collide(players) { //TODO: bounces get double counted because (p1, p2) != (p2, p1)
+export function collide(players, powerUps) { //TODO: bounces get double counted because (p1, p2) != (p2, p1)
 	for(let p1 in players) {
     	for(let p2 in players) {
     		if(p1 != p2) {
-	    		let c_pair = willCollide(players[p1], players[p2]);
+	    		let c_pair = playersWillCollide(players[p1], players[p2]);
     			players[p1] = c_pair.p1;
     			players[p2] = c_pair.p2;
     		}
     	}
     }
-    return;
+	for(let p1 in players) {
+    	for(let p2 in powerUps) {
+    		playerWillGetPowerUp(players[p1], powerUps[p2]);
+    	}
+    }
 }
 
-function willCollide(p1, p2) {
+function playerWillGetPowerUp(player, powerUp) {
+	// modify special attributes of "player"
+}
+
+function playersWillCollide(p1, p2) {
     let p1x = p1.xPos;
     let p1y = p1.yPos;
     let p1d = p1.direction;
