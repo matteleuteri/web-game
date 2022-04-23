@@ -96,4 +96,4 @@ setInterval(function() {
 	powerUpData.y = Math.floor(Math.random() * 400);
 	powerUps.push(powerUpData);
 	io.sockets.emit('createPowerUp', powerUps);
-}, 10000); // every ten seconds
+}, 10000);
