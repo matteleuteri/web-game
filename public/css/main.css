@@ -50,3 +50,6 @@ body {
     grid-column: 2;
     z-index: 2;
 }
+.playerImg {
+    visibility: hidden;
+}

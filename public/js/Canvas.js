@@ -8,9 +8,9 @@ export function drawCanvas(players, power_ups) {
         let current_player = players[player_id];
         drawPlayer(current_player, canvas_context);
     }
-    for(let pus in power_ups) {
-    	let pu = power_ups[pus];
-    	drawPowerUp(pu, canvas_context);
+    for(let puid in power_ups) {
+        let pu = power_ups[puid];
+        drawPowerUp(pu, canvas_context);
     }
     canvas_context.stroke();
 }
@@ -18,13 +18,33 @@ export function drawCanvas(players, power_ups) {
 // these draw functions are temporary
 
 function drawPlayer(current_player, ctx) {
-	let xPos = current_player.xPos;
+    let xPos = current_player.xPos;
     let yPos = current_player.yPos;
-    ctx.moveTo(xPos - 10, yPos - 10);
-    ctx.lineTo(xPos + 10, yPos - 10);
-    ctx.lineTo(xPos + 10, yPos + 10);
-    ctx.lineTo(xPos - 10, yPos + 10);
-    ctx.fill();
+    // ctx.moveTo(xPos - 10, yPos - 10);
+    // ctx.lineTo(xPos + 10, yPos - 10);
+    // ctx.lineTo(xPos + 10, yPos + 10);
+    // ctx.lineTo(xPos - 10, yPos + 10);
+    // ctx.fill();
+    let img = document.getElementById('playerImg1');
+    if(f) {
+        // use pics that end in 1
+        if(current_player.direction == 0) {//left
+            img = document.getElementById('playerImg1');
+        }
+        else if(current_player.direction == 2) {
+            img = document.getElementById('playerImg2');
+        }
+    }
+    else {
+        // use pics that end in 1
+        if(current_player.direction == 0) {//left
+            img = document.getElementById('playerImg3');
+        }
+        else if(current_player.direction == 2) {
+            img = document.getElementById('playerImg4');
+        }
+    }
+    ctx.drawImage(img, xPos-10, yPos-10);
 }
 
 function drawPowerUp(pu, ctx) {
@@ -34,3 +54,9 @@ function drawPowerUp(pu, ctx) {
     ctx.lineTo(pu.x - 5, pu.y + 5);
     ctx.fill();
 }
+
+// select which fraame we are in
+let f = true;
+setInterval(function() {
+    f = !f;
+}, 250);

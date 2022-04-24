@@ -25,28 +25,28 @@ server.listen(port, () => {
 // TODO: clients that have connected but not been named are visible on other client's screen but not their own. 
 // it shouldn't be seen on any at all
 io.on('connection', (socket) => {
-	handleConnect(socket);
+    handleConnect(socket);
     socket.on('update_dir', (inp) => {
-    	handleInput(inp);
+        handleInput(inp);
     });
     socket.on('setName', (nameData) => {
-    	handleSetName(nameData);
+        handleSetName(nameData);
     });
     socket.on('disconnect', () => {
-    	handleDisconnect(socket.id);
+        handleDisconnect(socket.id);
     });
 });
 
 function handleConnect(socket) {
     console.log(`A user just connected with id ${socket.id}.`);
     socket.emit('createPlayerProfile', socket.id);
- 	players[socket.id] = {'name': '', 'xPos': 100, 'yPos': 100, 'speed': 2, 'direction': 0, 'bounces': 0, 'powerUp': ''};
- 	//socket.emit('createPowerUp', powerUps); // move to 'state'
+    players[socket.id] = {'name': '', 'xPos': 100, 'yPos': 100, 'speed': 2, 'direction': 0, 'bounces': 0, 'powerUp': ''};
+    //socket.emit('createPowerUp', powerUps); // move to 'state'
 }
 
 // TODO: expand to more types of input
 function handleInput(new_dir_data) {
-	let to_update = players[new_dir_data.id];
+    let to_update = players[new_dir_data.id];
     to_update.direction = new_dir_data.new_dir;
 }
 
@@ -57,19 +57,18 @@ function handleInput(new_dir_data) {
  * broadcasted to all other clients
  * */
 function handleSetName(nameData){
-	for(let p in players) {
-    	if(p === nameData.id) {
-   			players[p].name = nameData.name;
-   			break;
-    	}
+    for(let p in players) {
+        if(p === nameData.id) {
+            players[p].name = nameData.name;
+            break;
+        }
     }
 }
 
 function handleDisconnect(client_id){
-	console.log(`A user has disconnected with id ${client_id}`);
+    console.log(`A user has disconnected with id ${client_id}`);
     delete players[client_id];
 }
-
 
 /**
  * this broadcasts to all clients the current state of the game,
@@ -79,8 +78,9 @@ function handleDisconnect(client_id){
 setInterval(function() {
     io.sockets.emit('state', players);
     collide(players, powerUps);
-	for(let p in players)
-		updateConfiguration(players[p]);
+    for(let p in players) {
+        updateConfiguration(players[p]);
+    }
     io.sockets.emit('updatePlayerList', players);
 }, 1000 / 60);
 
@@ -89,11 +89,10 @@ setInterval(function() {
  * and updates the clients about the change
  * */
 setInterval(function() {
-	let powerUpData = {}; // can this creation be simplified?
-	console.log();
-	powerUpData.putype = powerUpTypes[ Math.floor(Math.random() * powerUpTypes.length)];
-	powerUpData.x = Math.floor(Math.random() * 600);
-	powerUpData.y = Math.floor(Math.random() * 400);
-	powerUps.push(powerUpData);
-	io.sockets.emit('createPowerUp', powerUps);
+    let powerUpData = {}; // can this creation be simplified?
+    powerUpData.putype = powerUpTypes[ Math.floor(Math.random() * powerUpTypes.length)];
+    powerUpData.x = Math.floor(Math.random() * 600);
+    powerUpData.y = Math.floor(Math.random() * 400);
+    powerUps.push(powerUpData);
+    io.sockets.emit('createPowerUp', powerUps);
 }, 10000);
