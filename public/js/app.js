@@ -20,6 +20,7 @@ let _player_configs = { // default configuration
 //todo: adjust callback to run smooth with changes in time
 function mainLoop() {
     //handleInput(); // for now it just changes direction
+    console.log(_players);
     drawCanvas(_players, _power_ups);
     requestAnimationFrame(mainLoop);
 }
@@ -42,10 +43,12 @@ socket.on('createPowerUp', (powerUps) => {
 // TODO: this is all scorekeeping, move to a new file
 socket.on('updatePlayerList', (players) => {
     let player_count = Object.keys(players).length
-    if(player_count === 1)
+    if(player_count === 1) {
         document.getElementById('playerCount').innerHTML = `Only you are connected. Share the URL with your friends!`;
-    else
+    }
+    else {
         document.getElementById('playerCount').innerHTML = `There are ${player_count} players. Share the URL with your friends!`;   
+    }
     let player_list = document.querySelector('ul');
     player_list.innerHTML = '';
     for(let p in players) {

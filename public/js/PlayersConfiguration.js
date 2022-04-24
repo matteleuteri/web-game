@@ -32,22 +32,22 @@ export function collide(players, powerUps) { //TODO: bounces get double counted 
     for(let p1 in players) {
         for(let p2 in players) {
             if(p1 != p2) {
-                playersWillCollide(players[p1], players[p2]);
+                playersCollide(players[p1], players[p2]);
             }
         }
     }
     for(let player in players) {
-        playerWillGetPowerUp(players[player], powerUps);	
+        playerGetPowerUp(players[player], powerUps);	
     }
 }
 
-function playerWillGetPowerUp(player, powerUps) {
+function playerGetPowerUp(player, powerUps) {
     // modify special attributes of "player"
     let p1x = player.xPos;
     let p1y = player.yPos;
     for(let pu in powerUps) {
         if(Math.abs(p1x - powerUps[pu].x) <= 15 && Math.abs(p1y - powerUps[pu].y) <= 15) {
-            player.powerUp = powerUps[pu];
+            player.powerUp = powerUps[pu].putype;
             powerUps.pop(pu);
             console.log("power up collided with");
             return;
@@ -55,7 +55,7 @@ function playerWillGetPowerUp(player, powerUps) {
     }
 }
 
-function playersWillCollide(p1, p2) {
+function playersCollide(p1, p2) {
     let p1x = p1.xPos;
     let p1y = p1.yPos;
     let p1d = p1.direction;

@@ -41,7 +41,7 @@ function handleConnect(socket) {
     console.log(`A user just connected with id ${socket.id}.`);
     socket.emit('createPlayerProfile', socket.id);
     players[socket.id] = {'name': '', 'xPos': 100, 'yPos': 100, 'speed': 2, 'direction': 0, 'bounces': 0, 'powerUp': ''};
-    //socket.emit('createPowerUp', powerUps); // move to 'state'
+    socket.emit('createPowerUp', powerUps); // move to 'state'
 }
 
 // TODO: expand to more types of input
