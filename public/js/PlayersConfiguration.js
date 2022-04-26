@@ -1,3 +1,7 @@
+// global canvas vartiables
+const canvasWidth = 600;
+const canvasHeight = 400;
+
 export function updateConfiguration(player_configs) {
     let direction = player_configs.direction;
     let xPos = player_configs.xPos;
@@ -6,21 +10,21 @@ export function updateConfiguration(player_configs) {
     if (direction === 0) {
         xPos -= speed;
         if (xPos < -1 * 20) 
-            xPos = 600;
+            xPos = canvasWidth;
     }
     else if (direction === 1) {
         yPos -= speed;
         if (yPos < -1 * 20) 
-            yPos = 400;
+            yPos = canvasHeight;
     }
     else if (direction === 2) {
         xPos += speed;
-        if (xPos > 600) 
+        if (xPos > canvasWidth) 
             xPos = -1 * 20;
     }
     else if (direction === 3) {
         yPos += speed;
-        if (yPos > 400) 
+        if (yPos > canvasHeight) 
             yPos = -1 * 20;
     }
     player_configs.xPos = xPos;
@@ -95,5 +99,6 @@ function playersCollide(p1, p2) {
         p2.bounces++;
     }
 }
+
 
 

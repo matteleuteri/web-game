@@ -44,7 +44,7 @@ function drawPlayer(current_player, ctx) {
             img = document.getElementById('playerImg4');
         }
     }
-    ctx.drawImage(img, xPos-10, yPos-10);
+    ctx.drawImage(img, xPos - 10, yPos - 10);
 }
 
 function drawPowerUp(pu, ctx) {

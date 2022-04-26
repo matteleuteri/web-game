@@ -7,6 +7,10 @@ const url = window.location.href
 let _player_id = -1;
 let _players = {};
 let _power_ups = [];
+
+
+// TODO: add variables for palyer height and wid6th, to be accessed later by the canvas. 
+// this will need to be done in  multiple places until there is a class/prototype/temmplate for player
 let _player_configs = { // default configuration
     'name': '',
     'xPos': 100, 
