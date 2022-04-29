@@ -1,30 +1,22 @@
 import { drawCanvas } from '/js/Canvas.js';
+import Player from '/js/Player.js';
 
 let socket = io();
 
 const img = document.getElementById('playerImg');
-const url = window.location.href
+//const url = window.location.href
 let _player_id = -1;
 let _players = {};
 let _power_ups = [];
 
-
-// TODO: add variables for palyer height and wid6th, to be accessed later by the canvas. 
-// this will need to be done in  multiple places until there is a class/prototype/temmplate for player
-let _player_configs = { // default configuration
-    'name': '',
-    'xPos': 100, 
-    'yPos': 100, 
-    'speed': 2, 
-    'direction': 0, 
-    'bounces': 0 ,
-    'powerUp': '' 
-};
+// TODO: add variables for player height and width, to be accessed later by the canvas. 
+// this will need to be done in  multiple places until there is a class/prototype/template for player
+let _player_configs = new Player(); 
 
 //todo: adjust callback to run smooth with changes in time
 function mainLoop() {
     //handleInput(); // for now it just changes direction
-    console.log(_players);
+    // console.log(_players);
     drawCanvas(_players, _power_ups);
     requestAnimationFrame(mainLoop);
 }

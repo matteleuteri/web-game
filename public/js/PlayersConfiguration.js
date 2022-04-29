@@ -1,4 +1,3 @@
-// global canvas vartiables
 const canvasWidth = 600;
 const canvasHeight = 400;
 
@@ -40,13 +39,12 @@ export function collide(players, powerUps) { //TODO: bounces get double counted 
             }
         }
     }
-    for(let player in players) {
-        playerGetPowerUp(players[player], powerUps);	
+    for(let p in players) {
+        playerGetPowerUp(players[p], powerUps);	
     }
 }
 
 function playerGetPowerUp(player, powerUps) {
-    // modify special attributes of "player"
     let p1x = player.xPos;
     let p1y = player.yPos;
     for(let pu in powerUps) {

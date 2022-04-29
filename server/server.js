@@ -5,6 +5,7 @@ import express from 'express';
 import socketIO from 'socket.io';
 
 import { updateConfiguration, collide } from '../public/js/PlayersConfiguration.js';
+import Player from '../public/js/Player.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -40,11 +41,11 @@ io.on('connection', (socket) => {
 function handleConnect(socket) {
     console.log(`A user just connected with id ${socket.id}.`);
     socket.emit('createPlayerProfile', socket.id);
-    players[socket.id] = {'name': '', 'xPos': 100, 'yPos': 100, 'speed': 2, 'direction': 0, 'bounces': 0, 'powerUp': ''};
+    players[socket.id] = new Player();
     socket.emit('createPowerUp', powerUps); // move to 'state'
 }
 
-// TODO: expand to more types of input
+// TODO: expand to more types of input than just directional
 function handleInput(new_dir_data) {
     let to_update = players[new_dir_data.id];
     to_update.direction = new_dir_data.new_dir;

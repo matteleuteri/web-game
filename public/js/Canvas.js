@@ -8,14 +8,12 @@ export function drawCanvas(players, power_ups) {
         let current_player = players[player_id];
         drawPlayer(current_player, canvas_context);
     }
-    for(let puid in power_ups) {
-        let pu = power_ups[puid];
-        drawPowerUp(pu, canvas_context);
+    for(let p in power_ups) {
+        let power_up = power_ups[p];
+        drawPowerUp(power_up, canvas_context);
     }
     canvas_context.stroke();
 }
-
-// these draw functions are temporary
 
 function drawPlayer(current_player, ctx) {
     let xPos = current_player.xPos;
@@ -31,13 +29,12 @@ function drawPlayer(current_player, ctx) {
         if(current_player.direction == 0) {//left
             img = document.getElementById('playerImg1');
         }
-        else if(current_player.direction == 2) {
+        else if(current_player.direction == 2) {//right
             img = document.getElementById('playerImg2');
         }
     }
     else {
-        // use pics that end in 1
-        if(current_player.direction == 0) {//left
+        if(current_player.direction == 0) {
             img = document.getElementById('playerImg3');
         }
         else if(current_player.direction == 2) {
