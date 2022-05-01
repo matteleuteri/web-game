@@ -18,11 +18,6 @@ export function drawCanvas(players, power_ups) {
 function drawPlayer(current_player, ctx) {
     let xPos = current_player.xPos;
     let yPos = current_player.yPos;
-    // ctx.moveTo(xPos - 10, yPos - 10);
-    // ctx.lineTo(xPos + 10, yPos - 10);
-    // ctx.lineTo(xPos + 10, yPos + 10);
-    // ctx.lineTo(xPos - 10, yPos + 10);
-    // ctx.fill();
     let img = document.getElementById('playerImg1');
     if(f) {
         // use pics that end in 1
@@ -41,7 +36,11 @@ function drawPlayer(current_player, ctx) {
             img = document.getElementById('playerImg4');
         }
     }
-    ctx.drawImage(img, xPos - 10, yPos - 10);
+    //img.width = current_player.width;
+    // img.height = current_player.height;
+    ctx.drawImage(img, xPos - (current_player.width / 2), 
+        yPos - (current_player.height / 2),
+        current_player.width, current_player.height);
 }
 
 function drawPowerUp(pu, ctx) {

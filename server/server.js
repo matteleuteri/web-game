@@ -40,7 +40,7 @@ io.on('connection', (socket) => {
 
 function handleConnect(socket) {
     console.log(`A user just connected with id ${socket.id}.`);
-    socket.emit('createPlayerProfile', socket.id);
+    socket.emit('assignPlayerID', socket.id);
     players[socket.id] = new Player();
     socket.emit('createPowerUp', powerUps); // move to 'state'
 }

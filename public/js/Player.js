@@ -7,6 +7,19 @@ export default class Player {
     this.directions = 0;
     this.bounces = 0;
     this.powerUp = "";
+    this.height = 20;
+    this.width = 20;
   }
+  
+  usePowerUp() {
+    console.log(this.powerUp);
+    console.log("bigMode");
+    if(this.powerUp == "bigMode") {
+      console.log("bigMode activated???");
+      this.height *= 2;
+      this.width *= 2;
+    }
+  }
+
 }
 

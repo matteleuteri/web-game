@@ -4,7 +4,7 @@ import Player from '/js/Player.js';
 let socket = io();
 
 const img = document.getElementById('playerImg');
-//const url = window.location.href
+// const url = window.location.href
 let _player_id = -1;
 let _players = {};
 let _power_ups = [];
@@ -16,13 +16,11 @@ let _player_configs = new Player();
 //todo: adjust callback to run smooth with changes in time
 function mainLoop() {
     //handleInput(); // for now it just changes direction
-    // console.log(_players);
     drawCanvas(_players, _power_ups);
     requestAnimationFrame(mainLoop);
 }
 
-// player meta data from server is received and saved here
-socket.on('createPlayerProfile', (my_client_id) => {
+socket.on('assignPlayerID', (my_client_id) => {
     _player_id = my_client_id;
 });
 

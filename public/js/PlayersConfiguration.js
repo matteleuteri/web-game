@@ -1,34 +1,33 @@
 const canvasWidth = 600;
 const canvasHeight = 400;
 
-export function updateConfiguration(player_configs) {
-    let direction = player_configs.direction;
-    let xPos = player_configs.xPos;
-    let yPos = player_configs.yPos;
-    let speed = player_configs.speed;
+export function updateConfiguration(player) {
+    let direction = player.direction;
+    let xPos = player.xPos;
+    let yPos = player.yPos;
+    let speed = player.speed;
     if (direction === 0) {
         xPos -= speed;
-        if (xPos < -1 * 20) 
+        if (xPos < -1 * player.width) 
             xPos = canvasWidth;
     }
     else if (direction === 1) {
         yPos -= speed;
-        if (yPos < -1 * 20) 
+        if (yPos < -1 * player.height) 
             yPos = canvasHeight;
     }
     else if (direction === 2) {
         xPos += speed;
         if (xPos > canvasWidth) 
-            xPos = -1 * 20;
+            xPos = -1 * player.width;
     }
     else if (direction === 3) {
         yPos += speed;
         if (yPos > canvasHeight) 
-            yPos = -1 * 20;
+            yPos = -1 * player.height;
     }
-    player_configs.xPos = xPos;
-    player_configs.yPos = yPos;
-    return player_configs;
+    player.xPos = xPos;
+    player.yPos = yPos;
 }
 
 export function collide(players, powerUps) { //TODO: bounces get double counted because (p1, p2) != (p2, p1)
@@ -50,8 +49,9 @@ function playerGetPowerUp(player, powerUps) {
     for(let pu in powerUps) {
         if(Math.abs(p1x - powerUps[pu].x) <= 15 && Math.abs(p1y - powerUps[pu].y) <= 15) {
             player.powerUp = powerUps[pu].putype;
+            player.usePowerUp();
             powerUps.pop(pu);
-            console.log("power up collided with");
+            console.log(`power up collided with, + ${player.powerUp}`);
             return;
         }
     }
@@ -97,6 +97,3 @@ function playersCollide(p1, p2) {
         p2.bounces++;
     }
 }
-
-
-
