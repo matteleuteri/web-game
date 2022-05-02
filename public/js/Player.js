@@ -12,12 +12,13 @@ export default class Player {
   }
   
   usePowerUp() {
-    console.log(this.powerUp);
-    console.log("bigMode");
+    console.log(`picked up ${this.powerUp}.`);
     if(this.powerUp == "bigMode") {
-      console.log("bigMode activated???");
       this.height *= 2;
       this.width *= 2;
+    }
+    if(this.powerUp == "speedBoost") {
+      this.speed *= 2;
     }
   }
 

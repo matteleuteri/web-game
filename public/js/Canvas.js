@@ -36,11 +36,11 @@ function drawPlayer(current_player, ctx) {
             img = document.getElementById('playerImg4');
         }
     }
-    //img.width = current_player.width;
-    // img.height = current_player.height;
-    ctx.drawImage(img, xPos - (current_player.width / 2), 
+    ctx.drawImage(img, 
+        xPos - (current_player.width / 2), 
         yPos - (current_player.height / 2),
-        current_player.width, current_player.height);
+        current_player.width, 
+        current_player.height);
 }
 
 function drawPowerUp(pu, ctx) {

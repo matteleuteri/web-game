@@ -64,7 +64,7 @@ function playersCollide(p1, p2) {
     let p2x = p2.xPos;
     let p2y = p2.yPos;	
     let p2d = p2.direction;
-    if(Math.abs(p1x - p2x) <= 20 && Math.abs(p1y - p2y) <= 20) {
+    if(Math.abs(p1x - p2x) <= ((p1.width/2) + (p2.width/2)) && Math.abs(p1y - p2y) <= ((p1.height/2) + (p2.height/2))) {
         if(Math.abs(p1x - p2x) < Math.abs(p1y - p2y)) {// one is on top of the other
             if((p1y < p2y && p1d === 3 && p2d === 1) 
                 || (p1y < p2y && p1d == 3 && (p2d === 0 || p2d === 2)) 

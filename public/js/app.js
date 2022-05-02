@@ -37,12 +37,11 @@ socket.on('createPowerUp', (powerUps) => {
 // TODO: this is all scorekeeping, move to a new file
 socket.on('updatePlayerList', (players) => {
     let player_count = Object.keys(players).length
-    if(player_count === 1) {
+    if(player_count === 1) 
         document.getElementById('playerCount').innerHTML = `Only you are connected. Share the URL with your friends!`;
-    }
-    else {
+    else 
         document.getElementById('playerCount').innerHTML = `There are ${player_count} players. Share the URL with your friends!`;   
-    }
+    
     let player_list = document.querySelector('ul');
     player_list.innerHTML = '';
     for(let p in players) {
@@ -55,7 +54,7 @@ socket.on('updatePlayerList', (players) => {
     }
 });
 
-$('#submit-name').click(function(){
+$('#submit-name').click(function() {
     $('#name-form').hide();
     let nickname = document.getElementById('name').value;
     let nameData = {id: _player_id, name: nickname};
