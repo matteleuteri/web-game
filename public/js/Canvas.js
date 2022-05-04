@@ -51,7 +51,7 @@ function drawPowerUp(pu, ctx) {
     ctx.fill();
 }
 
-// select which fraame we are in
+// select which frame we are in
 let f = true;
 setInterval(function() {
     f = !f;

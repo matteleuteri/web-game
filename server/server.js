@@ -18,6 +18,7 @@ const powerUpTypes = ['movePerspective', 'speedBoost', 'bigMode'];
 let players = {};
 let powerUps = [];
 
+
 app.use(express.static(path.join(__dirname, '/../public')));
 server.listen(port, () => {
     console.log(`Starting server on port ${port}`);
@@ -78,6 +79,7 @@ function handleDisconnect(client_id){
  * */
 setInterval(function() {
     io.sockets.emit('state', players);
+    io.sockets.emit('createPowerUp', powerUps);
     collide(players, powerUps);
     for(let p in players) {
         updateConfiguration(players[p]);
