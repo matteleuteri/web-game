@@ -28,7 +28,7 @@ server.listen(port, () => {
 // it shouldn't be seen on any at all
 io.on('connection', (socket) => {
     handleConnect(socket);
-    socket.on('update_dir', (inp) => {
+    socket.on('readInput', (inp) => {
         handleInput(inp);
     });
     socket.on('setName', (nameData) => {
@@ -47,9 +47,10 @@ function handleConnect(socket) {
 }
 
 // TODO: expand to more types of input than just directional
-function handleInput(new_dir_data) {
-    let to_update = players[new_dir_data.id];
-    to_update.direction = new_dir_data.new_dir;
+function handleInput(input) {
+    // 
+    let to_update = players[input.id];
+    to_update.direction = input.new_dir;
 }
 
 /**

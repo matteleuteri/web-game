@@ -66,6 +66,9 @@ $(document).keydown(function(e) {
     if (e.keyCode > 36 && e.keyCode < 41) {
         _player_configs.direction = e.keyCode - 37;
     }
-    let new_dir_data = {id: _player_id, new_dir: _player_configs.direction};
-    socket.emit('update_dir', new_dir_data);
+    if (e.keyCode == 32) { // spacebar
+        _player_configs.direction = '';        
+    }
+    let input = {id: _player_id, new_dir: _player_configs.direction};
+    socket.emit('readInput', input);
 });
