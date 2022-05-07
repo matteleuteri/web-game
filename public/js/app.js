@@ -63,7 +63,7 @@ $('#submit-name').click(function() {
 });
 
 $(document).keydown(function(e) {
-    if (e.keyCode > 36 && e.keyCode < 41) {
+    if (e.keyCode > 36 && e.keyCode < 41) { // arrow keys 
         _player_configs.direction = e.keyCode - 37;
     }
     if (e.keyCode == 32) { // spacebar

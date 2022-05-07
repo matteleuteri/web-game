@@ -48,7 +48,6 @@ function handleConnect(socket) {
 
 // TODO: expand to more types of input than just directional
 function handleInput(input) {
-    // 
     let to_update = players[input.id];
     to_update.direction = input.new_dir;
 }
@@ -82,9 +81,9 @@ setInterval(function() {
     io.sockets.emit('state', players);
     io.sockets.emit('createPowerUp', powerUps);
     collide(players, powerUps);
-    for(let p in players) {
+    for(let p in players) 
         updateConfiguration(players[p]);
-    }
+    
     io.sockets.emit('updatePlayerList', players);
 }, 1000 / 60);
 
