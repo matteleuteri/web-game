@@ -9,6 +9,8 @@ export default class Player {
     this.powerUp = "";
     this.height = 20;
     this.width = 20;
+    // determines whether or not the player's info should be sent ot the server.
+    this.isActive = false; 
   }
   
   usePowerUp() {

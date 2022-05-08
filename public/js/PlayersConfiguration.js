@@ -30,17 +30,17 @@ export function updateConfiguration(player) {
     player.yPos = yPos;
 }
 
-export function collide(players, powerUps) { //TODO: bounces get double counted because (p1, p2) != (p2, p1)
-    for(let p1 in players) {
-        for(let p2 in players) {
-            if(p1 != p2) {
+export function collide(state) { //TODO: bounces get double counted because (p1, p2) != (p2, p1)\
+    let players = state.players;
+    let powerUps = state.powerUps;
+    for(let p1 in players) 
+        for(let p2 in players) 
+            if(p1 != p2 && players[p1].isActive && players[p2].isActive) 
                 playersCollide(players[p1], players[p2]);
-            }
-        }
-    }
-    for(let p in players) {
+
+    for(let p in players) 
         playerGetPowerUp(players[p], powerUps);	
-    }
+    
 }
 
 function playerGetPowerUp(player, powerUps) {

@@ -1,7 +1,7 @@
 import { drawCanvas } from '/js/Canvas.js';
 import Player from '/js/Player.js';
 
-let socket = io();
+const socket = io();
 
 const img = document.getElementById('playerImg');
 // const url = window.location.href
@@ -20,18 +20,14 @@ function mainLoop() {
     requestAnimationFrame(mainLoop);
 }
 
+// this is called once on connection. it lets the client know the socket id that the server uses to identify it.
 socket.on('assignPlayerID', (my_client_id) => {
     _player_id = my_client_id;
 });
 
-socket.on('state', (players) => {  
-    _players = players;
-});
-
-socket.on('createPowerUp', (powerUps) => {
-    // this power up data is passed to everyone at once
-    _power_ups = powerUps;
-    // TODO: add client code for picking one up, send to server, and have server send message for removal
+socket.on('state', (state) => {  
+    _players = state.players;
+    _power_ups = state.powerUps;
 });
 
 // TODO: this is all scorekeeping, move to a new file

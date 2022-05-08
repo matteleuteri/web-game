@@ -4,14 +4,13 @@ let canvas_context = canvas.getContext("2d");
 export function drawCanvas(players, power_ups) {
     canvas_context.clearRect(0, 0, canvas.width, canvas.height);
     canvas_context.beginPath();
-    for(let player_id in players) {
-        let current_player = players[player_id];
-        drawPlayer(current_player, canvas_context);
-    }
-    for(let p in power_ups) {
-        let power_up = power_ups[p];
-        drawPowerUp(power_up, canvas_context);
-    }
+    for(let player_id in players)
+        if(players[player_id].isActive)
+            drawPlayer(players[player_id], canvas_context);
+
+    for(let p in power_ups) 
+        drawPowerUp(power_ups[p], canvas_context);
+    
     canvas_context.stroke();
 }
 

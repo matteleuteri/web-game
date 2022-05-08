@@ -43,7 +43,6 @@ function handleConnect(socket) {
     console.log(`A user just connected with id ${socket.id}.`);
     socket.emit('assignPlayerID', socket.id);
     players[socket.id] = new Player();
-    socket.emit('createPowerUp', powerUps); // move to 'state'
 }
 
 // TODO: expand to more types of input than just directional
@@ -62,6 +61,7 @@ function handleSetName(nameData){
     for(let p in players) {
         if(p === nameData.id) {
             players[p].name = nameData.name;
+            players[p].isActive = true;
             break;
         }
     }
@@ -78,9 +78,9 @@ function handleDisconnect(client_id){
  * the power ups. 
  * */
 setInterval(function() {
-    io.sockets.emit('state', players);
-    io.sockets.emit('createPowerUp', powerUps);
-    collide(players, powerUps);
+    let state = {players: players, powerUps: powerUps}
+    io.sockets.emit('state', state);
+    collide(state);
     for(let p in players) 
         updateConfiguration(players[p]);
     
